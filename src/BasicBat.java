@@ -1,4 +1,4 @@
 
-public class BasicBat extends Bat {
+public class BasicBat {
 
 }
