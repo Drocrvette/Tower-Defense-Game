@@ -14,12 +14,15 @@ public class Bat {
 	private AffineTransform tx = AffineTransform.getTranslateInstance(posX, posY);
 	private int counter;
 	private int speedOfVirus;
+	private int yellow = 3;
 	
 	public Bat(int newX, int newY) {
 		posX = newX;
 		posY = newY;
 		init(posX, posY);
-	
+		imageOfBatLookingLeft = getImage("normal bat looking left.gif");
+		imageOfBatLookingRight = getImage("normal bat looking right.gif");
+
 	}
 	
 
@@ -45,7 +48,7 @@ public class Bat {
 	
 	private void init(double a, double b) {
 		tx.setToTranslation(a, b);
-		tx.scale(2, 2);
+		tx.scale(2, 1.5);
 	}
 	private Image getImage(String path) {
 		Image tempImage = null;
@@ -57,4 +60,5 @@ public class Bat {
 		}
 		return tempImage;
 	}
+
 }
