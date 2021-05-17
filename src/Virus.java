@@ -1,4 +1,4 @@
 
-public class Virus extends Bat{
+public class Virus{
 
 }
