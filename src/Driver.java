@@ -40,6 +40,7 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	buttons options = new buttons(300, 600,5);
 	buttons start = new buttons(600, 600,3);
 	Bat basic = new Bat(300, 300);
+	String screen = "main menu";
 
 	Thread music = new Thread() {
 		public void run() {
@@ -67,7 +68,9 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		options.paint(g);
 		start.paint(g);
 		
-		if (counter >= 1) {
+		g.drawRect(10, 690, 190, 60);
+		
+		if (screen.equals("play")) {
 		b.paint(g);
 		oldPerson1.paint(g);
 		basic.paint(g);
@@ -87,18 +90,19 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 			}
 			counter++;
 		}
+		
 	}
 	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		Driver d = new Driver();
 	}
 	
 	
 	public Driver() {
 		JFrame f = new JFrame("Tower-defense-game");
-		f.setSize(new Dimension(850, 850));
+		f.setSize(new Dimension(1440, 800));
 		f.add(this);
 		f.addMouseListener(this);
 		f.setResizable(false);
@@ -106,10 +110,14 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		Timer t = new Timer(16, this);
 	
 		music.run();
-
+		
 		t.start();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
+
+		if (screen.equals("exit")) {
+				f.setVisible(false);;
+		}
 	}
 	
 	
@@ -123,8 +131,15 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-			counter = 1;
-
+		int mouseX = arg0.getX();
+		int mouseY = arg0.getY();
+		if ((610 < mouseX && mouseX < 800) && (690 < mouseY  && mouseY < 750)) {
+			screen = "play";
+		} else if ((310 < mouseX && mouseX < 500) && (690 < mouseY  && mouseY < 750)) {
+			screen = "options";
+		} else if ((10 < mouseX && mouseX < 200) && (690 < mouseY  && mouseY < 750)) {
+			screen = "exit";
+		}
 	}
 	
 

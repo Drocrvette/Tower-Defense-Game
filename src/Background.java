@@ -17,7 +17,8 @@ public class Background {
 
 		}
 		if (typetype == 0) {
-			img = getImage("realtitle.png");
+			x = -226;
+			img = getImage("better frame.png");
 			init(x, y);
 
 		}
@@ -32,7 +33,7 @@ public class Background {
 	
 	private void init(double a, double b) {
 		tx.setToTranslation(a, b);
-		tx.scale(1.11, 1.1);
+		tx.scale(3.5, 3.5);
 	}
 	private void initmap(double a, double b) {
 		tx.setToTranslation(a, b);
