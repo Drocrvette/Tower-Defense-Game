@@ -37,11 +37,16 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	int counter = 0;
 	Background title = new Background(0);
 	buttons exit = new buttons(0, 600,4);
-	buttons options = new buttons(300, 600,5);
-	buttons start = new buttons(600, 600,3);
+	buttons options = new buttons(600, 600,5);
+	buttons start = new buttons(1200, 600,3);
 	Bat basic = new Bat(300, 300);
 	String screen = "main menu";
-
+	buttons levelSelect1 = new buttons(0, 0, 0);
+	buttons levelSelect2 = new buttons(0, 0, 0);
+	Virus testing = new Virus(500,500);
+	
+	
+	
 	Thread music = new Thread() {
 		public void run() {
 			Clip clip;
@@ -68,16 +73,21 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		options.paint(g);
 		start.paint(g);
 		
-		g.drawRect(10, 690, 190, 60);
-		
+		g.drawRect(610, 690, 190, 65);
+
 		if (screen.equals("play")) {
 		b.paint(g);
 		oldPerson1.paint(g);
 		basic.paint(g);
-
 		
+		if (!testing.isHit()) {
+			testing.paint(g);
+			testing.setTargetPos(200,700, 0, 0);
+			}
+		counter = 0;
 		if (counter >= 50) {
 		normalPerson1.paint(g);
+		
 		}
 		if (counter >= 100) {
 			fast1.paint(g);
@@ -87,10 +97,13 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 				fastest1.paint(g);
 			}
 			if (counter >= 250) {
+				
 			}
 			counter++;
 		}
-		
+		if (screen.equals("exit") ) {
+		   System.exit(0);
+		}
 	}
 	
 
@@ -115,13 +128,10 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
 
-		if (screen.equals("exit")) {
-				f.setVisible(false);;
-		}
+		
 	}
 	
 	
-
 
 
 
@@ -133,13 +143,15 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		// TODO Auto-generated method stub
 		int mouseX = arg0.getX();
 		int mouseY = arg0.getY();
-		if ((610 < mouseX && mouseX < 800) && (690 < mouseY  && mouseY < 750)) {
+		if ((1210 < mouseX && mouseX < 1400) && (690 < mouseY  && mouseY < 750)) {
 			screen = "play";
-		} else if ((310 < mouseX && mouseX < 500) && (690 < mouseY  && mouseY < 750)) {
+		} else if ((610 < mouseX && mouseX < 800) && (690 < mouseY  && mouseY < 750)) {
 			screen = "options";
 		} else if ((10 < mouseX && mouseX < 200) && (690 < mouseY  && mouseY < 750)) {
 			screen = "exit";
 		}
+		System.out.println(screen);
+
 	}
 	
 

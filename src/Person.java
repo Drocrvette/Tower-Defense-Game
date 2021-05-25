@@ -40,6 +40,24 @@ public class Person {
 		vy = 0;
 		finalImage =imageOfPersonGoingRight; 
 	}
+	public void setStage(int newStage) {
+		stageOfPerson = newStage;
+	}
+	public int getStage() {
+		return stageOfPerson;
+	}
+	public int getX() {
+		return posX;
+	}
+	public int getY() {
+		return posY;
+	}
+	public int getVX() {
+		return vx;
+	}
+	public int getVY() {
+		return vy;
+	}
 	
 	public void paint(Graphics g) {
 		
@@ -91,8 +109,8 @@ public class Person {
 			
 		
 		
-		posX= posX + vx;
-		posY= posY + vy;
+		posX+=vx;
+		posY+=vy;
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(finalImage, tx, null);
 		tx.setToTranslation(posX, posY);

@@ -23,7 +23,7 @@ public class Bat {
 		init(posX, posY);
 		imageOfBatLookingLeft = getImage("normal bat looking left.gif");
 		imageOfBatLookingRight = getImage("normal bat looking right.gif");
-
+		
 	}
 	
 

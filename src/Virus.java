@@ -5,19 +5,87 @@ import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 
-public class Virus{
+public class Virus {
 
 	private int posX,posY;
 	private int vx,vy;
+	private int x,y;
+	private int targetX, targetY;
+	private int speedOfTargetX, speedOfTargetY;
+	private Image finalImage;
+	private boolean hit = false;
+	private AffineTransform tx = AffineTransform.getTranslateInstance(posX, posY);
 	
 	
-	
-	public Virus(int startingX, int startingY, int speed) {
+	public Virus(int startingX, int startingY) {
 		
 		posX = startingX;
 		posY = startingY;
-		vx = speed;
-		vy = speed;
+		init(posX,posY);
+		hit = false;		
+	}
+	
+	public void setTargetPos(int newTargetX, int newTargetY, int vOfTargetX, int vOfTargetY) {
+		targetX = newTargetX;
+		targetY = newTargetY;
+		speedOfTargetX = vOfTargetX;
+		speedOfTargetY = vOfTargetY;
+		 x = (targetX-posX);
+		 y = targetY-posY;
+		if (Math.sqrt((double)(x * x)+(y*y)) <5000) {
+			newMath();
+		}
+		if (Math.abs(x) < 25 && Math.abs(y) < 25) {
+			hit = true;
+		}
+	}
+
+	
+	public void newMath() {
+		targetX +=speedOfTargetX;
+		targetY +=speedOfTargetY;
+		if ((targetX - posX) >= 0) {
+			vx = (targetX + posX)/y;
+			}
+		if ((targetX - posX) <= 0) {
+			vx =(targetX + posX)/y;
+			}
+		if ((targetY - posY) >= 0) {
+			vy =(targetY + posY)/x;
+			}
+		if ((targetY - posY) <= 0) {
+			vy =(targetY + posY)/x;
+			}
+			
+	}
+	public void paint(Graphics g) {
 		
+		finalImage = getImage("pixil-frame-0 (15).png");
+		posX+=vx;
+		posY+=vy;
+		Graphics2D g2 = (Graphics2D) g;
+		g2.drawImage(finalImage, tx, null);
+		tx.setToTranslation(posX, posY);
+		tx.scale(2, 2);
+	}
+	public boolean isHit() {
+		return hit;
+	}
+	
+	private void init(double a, double b) {
+		tx.setToTranslation(a, b);
+		tx.scale(2, 1.5);
+	}
+	private Image getImage(String path) {
+		Image tempImage = null;
+		try {
+			URL imageURL = Virus.class.getResource(path);
+			tempImage = Toolkit.getDefaultToolkit().getImage(imageURL);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tempImage;
+	
+	
 	}
 }
