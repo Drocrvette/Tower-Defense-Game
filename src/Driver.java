@@ -30,18 +30,17 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Driver extends JPanel implements ActionListener, MouseListener{
 
 	Background b = new Background(1);
-	Person oldPerson1 = new Person(-100,50,1);
-	Person normalPerson1 = new Person (-100, 50, 2);
-	Person fastest1 = new Person (-100, 50, 5);
-	Person fast1 = new Person(-100, 50, 3);
-	Person faster1 = new Person(-100, 50, 4);
+	Person oldPerson1 = new Person(1240,125,1);
+	Person normalPerson1 = new Person (1240, 125, 2);
+	Person fastest1 = new Person (1240, 125, 5);
+	Person fast1 = new Person(1240, 125, 3);
+	Person faster1 = new Person(1240, 125, 4);
 	int counter = 0;
 	Background title = new Background(0);
 	buttons exit = new buttons(0, 600,4);
 	buttons start = new buttons(1200, 600,3);
 	Bat basic = new Bat(300, 300);
 	String screen = "main menu";
-	Virus testing = new Virus(500,500,13);
 	ArrayList<Person> people = new ArrayList<Person>();
 	
 	
@@ -76,14 +75,11 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		b.paint(g);
 		oldPerson1.paint(g);
 		basic.paint(g);
-		g.drawLine(1440,200, 300, 200);
+		g.setColor(new Color(255,0,0));
+		g.drawLine(160 ,630, 1240, 630);
 
 		
-		if (!testing.isHit()) {
-			testing.paint(g);
-			testing.setTargetPos(1000,600, 0, 0);
-			}
-		counter = 0;
+	
 		if (counter >= 50) {
 		normalPerson1.paint(g);
 		

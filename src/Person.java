@@ -64,27 +64,37 @@ public class Person {
 		
 		
 		
-		if (posX  > 50 && posY == 100) {
+		if (posX  > 90 && posY == 125) {
 			left(stageOfPerson);
-		  if (posX == 680 && posY > 0 && posY < 280) { 
-			down(stageOfPerson);
-		 if (posX == 680 && posY > 270 && posY < 500 ) {
-			right(stageOfPerson);
-		 if (posX == 150 && posY < 500 && posY > 270) {
-			up(stageOfPerson);
-		  if (posX < 680 && posY == 500) {
-			right(stageOfPerson);
-		  if (posX == 680 && posY >=500) {
-			down(stageOfPerson);
-			if (posX  > 50 && posY == 100) {
-				left(stageOfPerson);
-			  if (posX == 680 && posY > 0 && posY < 280) { 
-				down(stageOfPerson);
-			 if (posX == 680 && posY > 270 && posY < 500 ) {
-				right(stageOfPerson);
+			System.out.println("hi");
+		}	else if (posX <= 90 && posX > 85 && posY < 460) { 
+			down(stageOfPerson);			System.out.println("no u");
+
+		}	else if (posX < 700 && posY >= 460 && posY < 465 ) {
+			right(stageOfPerson);			System.out.println("bye");
+
+		
+		}else	 if (posX == 700 && posY > 300) {
+			up(stageOfPerson);			System.out.println("yes");
+
+		}	else  if (posX > 1120 && posY == 300) {
+			right(stageOfPerson);			System.out.println("no");
+
+		}	else if (posX == 1120 && posY > 530) {
+			down(stageOfPerson);			System.out.println("maybe");
+
+		}	else	if (posX  > 160 && posY == 530) {
+				left(stageOfPerson);			System.out.println("so");
+
+		}		else	  if (posX == 160 && posY < 630) { 
+				down(stageOfPerson);			System.out.println("oof");
+
+		}		else	 if (posX < 1240 && posY == 630) {
+				right(stageOfPerson);			System.out.println("sus");
+
 
 		}
-		   }}}}}}}}
+		   
 		
 		
 		if (stageOfPerson == 1) {
