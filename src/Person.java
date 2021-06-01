@@ -14,6 +14,7 @@ public class Person {
 	private Image imageOfPersonGoingLeft, imageOfPersonGoingRight, finalImage;
 	private AffineTransform tx = AffineTransform.getTranslateInstance(posX, posY);
 	private int counter;
+	private int position = vx + vy;
 	
 	public Person(int newX, int newY, int currentStage) {
 		
@@ -63,20 +64,28 @@ public class Person {
 		
 		
 		
-		if (posX < 680 && posY < 250) {
-			right(stageOfPerson);
-		}  if (posX == 680 && posY > 0 && posY < 280) { 
-			down(stageOfPerson);
-		}  if (posX == 680 && posY > 270 && posY < 500 ) {
+		if (posX  > 50 && posY == 100) {
 			left(stageOfPerson);
-		}  if (posX == 150 && posY < 500 && posY > 270) {
+		  if (posX == 680 && posY > 0 && posY < 280) { 
 			down(stageOfPerson);
-		}  if (posX < 680 && posY == 500) {
+		 if (posX == 680 && posY > 270 && posY < 500 ) {
 			right(stageOfPerson);
-		}  if (posX == 680 && posY >=500) {
+		 if (posX == 150 && posY < 500 && posY > 270) {
+			up(stageOfPerson);
+		  if (posX < 680 && posY == 500) {
+			right(stageOfPerson);
+		  if (posX == 680 && posY >=500) {
 			down(stageOfPerson);
+			if (posX  > 50 && posY == 100) {
+				left(stageOfPerson);
+			  if (posX == 680 && posY > 0 && posY < 280) { 
+				down(stageOfPerson);
+			 if (posX == 680 && posY > 270 && posY < 500 ) {
+				right(stageOfPerson);
 
 		}
+		   }}}}}}}}
+		
 		
 		if (stageOfPerson == 1) {
 			imageOfPersonGoingLeft = getImage("OldPerson Going Left.gif");

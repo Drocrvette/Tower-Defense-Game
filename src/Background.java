@@ -12,7 +12,7 @@ public class Background {
 
 	public Background(int typetype) {
 		if (typetype == 1) {
-		img = getImage("background.png");
+		img = getImage("ice map.png");
 		initmap(x, y);
 
 		}
@@ -37,7 +37,7 @@ public class Background {
 	}
 	private void initmap(double a, double b) {
 		tx.setToTranslation(a, b);
-		tx.scale(1, 1);
+		tx.scale(4.8, 4);
 	}
 
 	// converts image to make it drawable in paint

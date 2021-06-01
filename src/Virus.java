@@ -8,17 +8,19 @@ import java.net.URL;
 public class Virus {
 
 	private int posX,posY;
-	private int vx,vy;
+	private double vx,vy;
 	private int x,y;
 	private int targetX, targetY;
 	private int speedOfTargetX, speedOfTargetY;
 	private Image finalImage;
 	private boolean hit = false;
 	private AffineTransform tx = AffineTransform.getTranslateInstance(posX, posY);
+	private double a;
+	private int speed;
 	
 	
-	public Virus(int startingX, int startingY) {
-		
+	public Virus(int startingX, int startingY, int newSpeed) {
+		speed = newSpeed;
 		posX = startingX;
 		posY = startingY;
 		init(posX,posY);
@@ -30,12 +32,12 @@ public class Virus {
 		targetY = newTargetY;
 		speedOfTargetX = vOfTargetX;
 		speedOfTargetY = vOfTargetY;
-		 x = (targetX-posX);
-		 y = targetY-posY;
+		 x = Math.abs(targetX-posX);
+		 y = Math.abs(targetY-posY);
 		if (Math.sqrt((double)(x * x)+(y*y)) <5000) {
 			newMath();
 		}
-		if (Math.abs(x) < 25 && Math.abs(y) < 25) {
+		if (Math.abs(x) < 50 && Math.abs(y) < 50) {
 			hit = true;
 		}
 	}
@@ -44,19 +46,11 @@ public class Virus {
 	public void newMath() {
 		targetX +=speedOfTargetX;
 		targetY +=speedOfTargetY;
-		if ((targetX - posX) >= 0) {
-			vx = (targetX + posX)/y;
-			}
-		if ((targetX - posX) <= 0) {
-			vx =(targetX + posX)/y;
-			}
-		if ((targetY - posY) >= 0) {
-			vy =(targetY + posY)/x;
-			}
-		if ((targetY - posY) <= 0) {
-			vy =(targetY + posY)/x;
-			}
-			
+		vx = speed * Math.sin(a);
+		vy = speed * Math.cos(a);
+		
+		
+		System.out.println(vx + "  " + vy + "  " + a);
 	}
 	public void paint(Graphics g) {
 		

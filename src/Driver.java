@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -37,14 +38,11 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	int counter = 0;
 	Background title = new Background(0);
 	buttons exit = new buttons(0, 600,4);
-	buttons options = new buttons(600, 600,5);
 	buttons start = new buttons(1200, 600,3);
 	Bat basic = new Bat(300, 300);
 	String screen = "main menu";
-	buttons levelSelect1 = new buttons(0, 0, 0);
-	buttons levelSelect2 = new buttons(0, 0, 0);
-	Virus testing = new Virus(500,500);
-	
+	Virus testing = new Virus(500,500,13);
+	ArrayList<Person> people = new ArrayList<Person>();
 	
 	
 	Thread music = new Thread() {
@@ -70,19 +68,20 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		super.paintComponent(g);
 		title.paint(g);
 		exit.paint(g);
-		options.paint(g);
 		start.paint(g);
 		
-		g.drawRect(610, 690, 190, 65);
 
+		
 		if (screen.equals("play")) {
 		b.paint(g);
 		oldPerson1.paint(g);
 		basic.paint(g);
+		g.drawLine(1440,200, 300, 200);
+
 		
 		if (!testing.isHit()) {
 			testing.paint(g);
-			testing.setTargetPos(200,700, 0, 0);
+			testing.setTargetPos(1000,600, 0, 0);
 			}
 		counter = 0;
 		if (counter >= 50) {
@@ -145,9 +144,7 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		int mouseY = arg0.getY();
 		if ((1210 < mouseX && mouseX < 1400) && (690 < mouseY  && mouseY < 750)) {
 			screen = "play";
-		} else if ((610 < mouseX && mouseX < 800) && (690 < mouseY  && mouseY < 750)) {
-			screen = "options";
-		} else if ((10 < mouseX && mouseX < 200) && (690 < mouseY  && mouseY < 750)) {
+		}else if ((10 < mouseX && mouseX < 200) && (690 < mouseY  && mouseY < 750)) {
 			screen = "exit";
 		}
 		System.out.println(screen);

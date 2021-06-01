@@ -15,10 +15,7 @@ public class buttons {
 		if (buttonType == 4) {
 		img = getImage("pixil-frame-0 (4).png");
 		} 
-			if (buttonType == 5) {
-				img = getImage("pixil-frame-0 (5).png");
-				
-		}if (buttonType == 3) {
+			if (buttonType == 3) {
 			img = getImage("pixil-frame-0 (3).png");
 			}
 		x = initX;
