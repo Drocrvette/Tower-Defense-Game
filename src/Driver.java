@@ -114,7 +114,7 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	
 	public Driver() {
 		JFrame f = new JFrame("Tower-defense-game");
-		f.setSize(new Dimension(1440, 800));
+		f.setSize(new Dimension(1440, 900));
 		f.add(this);
 		f.addMouseListener(this);
 		f.setResizable(false);

@@ -37,7 +37,7 @@ public class Background {
 	}
 	private void initmap(double a, double b) {
 		tx.setToTranslation(a, b);
-		tx.scale(4.8, 4);
+		tx.scale(4.8, 3.83);
 	}
 
 	// converts image to make it drawable in paint
