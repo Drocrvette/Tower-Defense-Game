@@ -14,7 +14,7 @@ public class Person {
 	private Image imageOfPersonGoingLeft, imageOfPersonGoingRight, finalImage;
 	private AffineTransform tx = AffineTransform.getTranslateInstance(posX, posY);
 	private int counter;
-	private int position = vx + vy;
+	private int turnPosX, turnPosY;
 	
 	public Person(int newX, int newY, int currentStage) {
 		
@@ -29,9 +29,11 @@ public class Person {
 	public void up(int stage) {
 		vx = 0;
 		vy = -stage;
+
 	}public void down(int stage) {
 		vx = 0;
 		vy = stage;
+
 	}public void left(int stage) {
 		vx = -stage;
 		vy = 0;
@@ -59,43 +61,50 @@ public class Person {
 	public int getVY() {
 		return vy;
 	}
-	
-	public void paint(Graphics g) {
-		
-		
-		
-		if (posX  > 90 && posY == 125) {
-			left(stageOfPerson);
-			System.out.println("hi");
-		}	else if (posX <= 90 && posX > 85 && posY < 460) { 
-			down(stageOfPerson);			System.out.println("no u");
-
-		}	else if (posX < 700 && posY >= 460 && posY < 465 ) {
-			right(stageOfPerson);			System.out.println("bye");
-
-		
-		}else	 if (posX == 700 && posY > 300) {
-			up(stageOfPerson);			System.out.println("yes");
-
-		}	else  if (posX > 1120 && posY == 300) {
-			right(stageOfPerson);			System.out.println("no");
-
-		}	else if (posX == 1120 && posY > 530) {
-			down(stageOfPerson);			System.out.println("maybe");
-
-		}	else	if (posX  > 160 && posY == 530) {
-				left(stageOfPerson);			System.out.println("so");
-
-		}		else	  if (posX == 160 && posY < 630) { 
-				down(stageOfPerson);			System.out.println("oof");
-
-		}		else	 if (posX < 1240 && posY == 630) {
-				right(stageOfPerson);			System.out.println("sus");
-
+	public void dispose(Graphics g, boolean goingLeft) {
+		if (goingLeft) {
+			finalImage=imageOfPersonGoingLeft;
+		} else {
+			finalImage =imageOfPersonGoingRight; 
 
 		}
-		   
+	}
+	public void paint(Graphics g) {
 		
+	
+		if (posX >=90 && posX < 95 && posY == 125) {
+			down(stageOfPerson);		//	System.out.println("hi");
+		}	else if (posX >=90 && posX < 95 && posY >=410 && posY < 415 ) { 
+			right(stageOfPerson);		//	System.out.println("no u");
+
+		}	else if ( posY >=410 && posY < 415 && posX >= 660 && posX <665) {
+			up(stageOfPerson);		//	System.out.println("bye");
+		
+		}else	 if (posX >= 660 && posX <665 && posY <= 250 && posY > 245) {
+			right(stageOfPerson);				//System.out.println("yes");
+
+		}	else  if (posY <= 250 && posY > 245 && posX >= 1080 && posX < 1805) {
+			down(stageOfPerson);		//	System.out.println("no");
+
+		}	else if (posX >= 1080 && posX < 1805 && posY >= 470 && posY < 475 ) {
+			left(stageOfPerson);		//	System.out.println("maybe");
+
+		}	else	if (posY >= 470 && posY < 475 && posX <= 130 && posX >125) {
+				down(stageOfPerson);	//	System.out.println("so");
+
+		}	else  if (posX <= 130 && posX >125 && posY >= 570 && posY < 575) { 
+				right(stageOfPerson);	//	System.out.println("oof");
+
+		}	else if (posY == 125) {
+			left(stageOfPerson);
+
+		}  else if (posX == 1180 && posY > 550) {
+			stageOfPerson = 0;
+		} else if (posX > 1240) {
+		finalImage =imageOfPersonGoingLeft; 
+		}
+		   
+		//System.out.println(posX + " " + posY);
 		
 		if (stageOfPerson == 1) {
 			imageOfPersonGoingLeft = getImage("OldPerson Going Left.gif");
@@ -123,8 +132,13 @@ public class Person {
 			isDead = true;
 			vx = 0;
 			vy = 0;
-
+			dispose(g,isDead);
+		
+	
 		}
+		
+		
+		
 			
 		
 		

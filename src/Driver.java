@@ -42,7 +42,10 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	Bat basic = new Bat(300, 300);
 	String screen = "main menu";
 	ArrayList<Person> people = new ArrayList<Person>();
-	
+	int deathCounter = 300;
+	Bat buyBat = new Bat(1300,115);
+	Bat buyCatapult = new Bat(1300,185);
+
 	
 	Thread music = new Thread() {
 		public void run() {
@@ -73,35 +76,63 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		
 		if (screen.equals("play")) {
 		b.paint(g);
+		buyBat.paint(g);
+		buyCatapult.paint(g);
 		oldPerson1.paint(g);
-		basic.paint(g);
-		g.setColor(new Color(255,0,0));
-		g.drawLine(160 ,630, 1240, 630);
+		people.add(fastest1);
+	
 
-		
+
 	
 		if (counter >= 50) {
 		normalPerson1.paint(g);
+
 		
+
 		}
 		if (counter >= 100) {
 			fast1.paint(g);
+
+
+			
 			}if (counter >= 150) {
-				faster1.paint(g);
-			}if (counter >= 200) {
-				fastest1.paint(g);
-			}
-			if (counter >= 250) {
+			faster1.paint(g);
 				
+			}if (counter >= 200) {
+			fastest1.paint(g);
+							}
+			if (counter >= 250) {
+
 			}
 			counter++;
 		}
 		if (screen.equals("exit") ) {
 		   System.exit(0);
 		}
+		if (isRoundOver()) {
+			counter = 0;
+		}
+	
 	}
 	
+	public boolean isRoundOver() {
 
+		for (int i = 0; i < people.size();i++) {
+			if (people.get(i).getStage() != 0) {
+				return false;
+			}
+			else {
+				deathCounter = 1000;
+				while (deathCounter >0) {
+					deathCounter--;
+					System.out.println(deathCounter);
+				}
+			}
+			
+		}
+		return true;
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Driver d = new Driver();

@@ -40,7 +40,7 @@ public class Bat {
 			
 		imageOfBatLookingRight = getImage("normal bat looking right.gif");
 		imageOfBatLookingLeft = getImage("normal bat looking left.gif");
-		
+		finalImage = imageOfBatLookingLeft;
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(finalImage, tx, null);
 		tx.setToTranslation(posX, posY);
