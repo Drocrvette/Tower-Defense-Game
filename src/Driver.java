@@ -38,13 +38,16 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	int counter = 0;
 	Background title = new Background(0);
 	buttons exit = new buttons(0, 600,4);
-	buttons start = new buttons(1200, 600,3);
-	Bat basic = new Bat(300, 300);
+	buttons start = new buttons(600, 600,3);
+	buttons pause = new buttons(1035,717,2);
+	buttons resume = new buttons(1028,717,1);
 	String screen = "main menu";
+	String gameButton = "pause";
 	ArrayList<Person> people = new ArrayList<Person>();
 	int deathCounter = 300;
-	Bat buyBat = new Bat(1300,115);
-	Bat buyCatapult = new Bat(1300,185);
+	Bat buyBat = new Bat(1300,115,1);
+	Bat buyCatapult = new Bat(1300,185,2);
+	int tempvx, tempvy;
 
 	
 	Thread music = new Thread() {
@@ -78,13 +81,27 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		b.paint(g);
 		buyBat.paint(g);
 		buyCatapult.paint(g);
-		oldPerson1.paint(g);
 		people.add(fastest1);
-	
+		if (gameButton.equals("resume")) {
+			resume.paint(g);
+			for (int i = 0; i < people.size(); i++) {
+				people.get(i).setVXandVY(tempvx,tempvy);
+			}
+		} else if (gameButton.equals("pause")) {
+			pause.paint(g);
+			for (int i = 0; i < people.size(); i++) {
+				tempvx = people.get(i).getVX();
+				tempvy = people.get(i).getVY();
 
-
+				people.get(i).setVXandVY(0,0);
+			}
+			while (gameButton.equals("pause")) {
+				
+			}
+		}
 	
 		if (counter >= 50) {
+			oldPerson1.paint(g);
 		normalPerson1.paint(g);
 
 		
@@ -103,8 +120,9 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 							}
 			if (counter >= 250) {
 
-			}
+			} if (!gameButton.equals("pause")) {
 			counter++;
+			}
 		}
 		if (screen.equals("exit") ) {
 		   System.exit(0);
@@ -125,7 +143,6 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 				deathCounter = 1000;
 				while (deathCounter >0) {
 					deathCounter--;
-					System.out.println(deathCounter);
 				}
 			}
 			
@@ -169,12 +186,18 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		// TODO Auto-generated method stub
 		int mouseX = arg0.getX();
 		int mouseY = arg0.getY();
-		if ((1210 < mouseX && mouseX < 1400) && (690 < mouseY  && mouseY < 750)) {
+		if ((610 < mouseX && mouseX < 800) && (690 < mouseY  && mouseY < 750)) {
 			screen = "play";
 		}else if ((10 < mouseX && mouseX < 200) && (690 < mouseY  && mouseY < 750)) {
 			screen = "exit";
+		} else if (mouseX < 1200 && mouseX > 1010 && mouseY < 780 && mouseY > 705 && (gameButton.equals("pause"))) {
+			gameButton = "resume";
+			
+		}else if (mouseX < 1200 && mouseX > 1010 && mouseY < 780 && mouseY > 705 && (gameButton.equals("resume")|| screen.equals("play"))) {
+			gameButton = "pause";
+			
+
 		}
-		System.out.println(screen);
 
 	}
 	

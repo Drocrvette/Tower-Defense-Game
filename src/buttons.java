@@ -12,15 +12,28 @@ public class buttons {
 	private AffineTransform tx = AffineTransform.getTranslateInstance(x, y);
 
 	public buttons(int initX, int initY, int buttonType) {
+		x = initX;
+		y = initY;
+
 		if (buttonType == 4) {
 		img = getImage("pixil-frame-0 (4).png");
+		initMainMenu(x,y);
+
 		} 
 			if (buttonType == 3) {
 			img = getImage("pixil-frame-0 (3).png");
+			initMainMenu(x,y);
+
+			} if (buttonType == 1) {
+				img = getImage("pause button.png");
+				initMap(x,y);
+
 			}
-		x = initX;
-		y = initY;
-		init(x,y);
+			if (buttonType == 2) {
+				img = getImage("play button.png");
+				initMap(x,y);
+
+			}
 	}
 	
 	public void paint(Graphics g) {
@@ -30,10 +43,17 @@ public class buttons {
 	}
 	
 	
-	private void init(double a, double b) {
+	private void initMainMenu(double a, double b) {
 		tx.setToTranslation(a, b);
 		tx.scale(1.11, 1.1);
 	}
+	
+	private void initMap(double a, double b) {
+		tx.setToTranslation(a, b);
+		tx.scale(4, 3.5);
+	}
+	
+
 
 
 	// converts image to make it drawable in paint

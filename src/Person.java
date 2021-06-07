@@ -14,7 +14,7 @@ public class Person {
 	private Image imageOfPersonGoingLeft, imageOfPersonGoingRight, finalImage;
 	private AffineTransform tx = AffineTransform.getTranslateInstance(posX, posY);
 	private int counter;
-	private int turnPosX, turnPosY;
+	private int tempVY, tempVX;
 	
 	public Person(int newX, int newY, int currentStage) {
 		
@@ -60,6 +60,12 @@ public class Person {
 	}
 	public int getVY() {
 		return vy;
+	}
+	public void setVXandVY(int newVX, int newVY) {
+		vx = newVX;
+		vy = newVY;
+		
+
 	}
 	public void dispose(Graphics g, boolean goingLeft) {
 		if (goingLeft) {

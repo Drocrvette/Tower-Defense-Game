@@ -16,8 +16,10 @@ public class Bat {
 	private int counter;
 	private int speedOfVirus;
 	private int yellow = 3;
+	private int version;
 	
-	public Bat(int newX, int newY) {
+	public Bat(int newX, int newY, int newVersion) {
+		version = newVersion;
 		posX = newX;
 		posY = newY;
 		init(posX, posY);
@@ -37,14 +39,22 @@ public class Bat {
 		}
 	}
 	public void paint(Graphics g) {
-			
+			if (version == 1) {
 		imageOfBatLookingRight = getImage("normal bat looking right.gif");
 		imageOfBatLookingLeft = getImage("normal bat looking left.gif");
+		tx.scale(1, 1);
+
+			} else if (version == 2) {
+				imageOfBatLookingRight = getImage("catapult looking right.gif");
+				imageOfBatLookingLeft = getImage("catapult looking left.gif");
+				tx.scale(2, 2);
+
+
+			}
 		finalImage = imageOfBatLookingLeft;
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(finalImage, tx, null);
 		tx.setToTranslation(posX, posY);
-		tx.scale(1, 1);
 	}
 	
 	private void init(double a, double b) {
