@@ -15,6 +15,7 @@ public class Person {
 	private AffineTransform tx = AffineTransform.getTranslateInstance(posX, posY);
 	private int counter;
 	private int tempVY, tempVX;
+	private boolean isOnMap = false;
 	
 	public Person(int newX, int newY, int currentStage) {
 		
@@ -131,7 +132,12 @@ public class Person {
 		if (stageOfPerson == 5) {
 			imageOfPersonGoingLeft = getImage("Fastestman going left.gif");
 			imageOfPersonGoingRight = getImage("Fastestman going right.gif");
+		}if (stageOfPerson == 6) {
+			imageOfPersonGoingLeft = getImage("Fastestman going left.gif");
+			imageOfPersonGoingRight = getImage("Fastestman going right.gif");
+			
 		}
+		
 		if (stageOfPerson == 0) {
 			imageOfPersonGoingLeft = getImage("better death.gif");
 			imageOfPersonGoingRight = getImage("better death.gif");

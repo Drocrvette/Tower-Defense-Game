@@ -1,30 +1,25 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import java.io.File;
+import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 public class Driver extends JPanel implements ActionListener, MouseListener{
@@ -48,7 +43,8 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	Bat buyBat = new Bat(1300,115,1);
 	Bat buyCatapult = new Bat(1300,185,2);
 	int tempvx, tempvy;
-
+	Virus v = new Virus(1000, 100, 5);
+	int[][] rounds = new int[10][];
 	
 	Thread music = new Thread() {
 		public void run() {
@@ -82,6 +78,8 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		buyBat.paint(g);
 		buyCatapult.paint(g);
 		people.add(fastest1);
+		v.setTargetPos(300, 600, 0, 0);
+		v.paint(g);
 		if (gameButton.equals("resume")) {
 			resume.paint(g);
 			for (int i = 0; i < people.size(); i++) {
@@ -95,9 +93,7 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 
 				people.get(i).setVXandVY(0,0);
 			}
-			while (gameButton.equals("pause")) {
-				
-			}
+			
 		}
 	
 		if (counter >= 50) {
@@ -153,6 +149,24 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Driver d = new Driver();
+		Scanner s;
+		
+		try {
+			s = new Scanner(new File("covid defense round sheet - Sheet 1.csv"));
+			int count = 0;
+			s.next();
+			while (s.hasNext()) {
+				
+			}
+			s.close();
+
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 	
 	

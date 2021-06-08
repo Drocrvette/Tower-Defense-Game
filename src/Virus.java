@@ -7,11 +7,13 @@ import java.net.URL;
 
 public class Virus {
 
-	private int posX,posY;
+	private double posX,posY;
 	private double vx,vy;
-	private int x,y;
+	private double x;
+	private double y;
 	private int targetX, targetY;
 	private int speedOfTargetX, speedOfTargetY;
+	private double angle, angleInR;
 	private Image finalImage;
 	private boolean hit = false;
 	private AffineTransform tx = AffineTransform.getTranslateInstance(posX, posY);
@@ -28,29 +30,43 @@ public class Virus {
 	}
 	
 	public void setTargetPos(int newTargetX, int newTargetY, int vOfTargetX, int vOfTargetY) {
-		targetX = newTargetX;
-		targetY = newTargetY;
-		speedOfTargetX = vOfTargetX;
-		speedOfTargetY = vOfTargetY;
-		 x = Math.abs(targetX-posX);
-		 y = Math.abs(targetY-posY);
+		targetX = newTargetX+vOfTargetX;
+		targetY = newTargetY+vOfTargetY;
+	
+		 x = targetX-posX;
+		 y = targetY-posY;
 		if (Math.sqrt((double)(x * x)+(y*y)) <5000) {
 			newMath();
 		}
 		if (Math.abs(x) < 50 && Math.abs(y) < 50) {
 			hit = true;
+			vx =0;
+			vy = 0;
 		}
 	}
 
 	
 	public void newMath() {
-		targetX +=speedOfTargetX;
-		targetY +=speedOfTargetY;
-		vx = speed * Math.sin(a);
-		vy = speed * Math.cos(a);
+		if (x < 0 && y < 0) {
+		angleInR = Math.atan((double)(y/x));
+		vx = -Math.cos(angleInR)*speed;
+		vy = -Math.sin(angleInR)*speed;
+		} else if (x > 0 && y < 0) {
+			angleInR = Math.atan((double)(y/x));
+			vx = Math.cos(angleInR)*speed;
+			vy = Math.sin(angleInR)*speed;
+			} else if (x < 0 && y > 0) {
+				angleInR = Math.atan((double)(y/x));
+				vx = -Math.cos(angleInR)*speed;
+				vy = -Math.sin(angleInR)*speed;
+				} else if (x > 0 && y > 0) {
+					angleInR = Math.atan((double)(y/x));
+					vx = Math.cos(angleInR)*speed;
+					vy = Math.sin(angleInR)*speed;
+					}  
+
+		System.out.println(x + " " + y);
 		
-		
-		System.out.println(vx + "  " + vy + "  " + a);
 	}
 	public void paint(Graphics g) {
 		
