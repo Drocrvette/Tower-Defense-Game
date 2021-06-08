@@ -44,13 +44,25 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	Bat buyCatapult = new Bat(1300,185,2);
 	int tempvx, tempvy;
 	Virus v = new Virus(1000, 100, 5);
+	int round = 0;
 	int[][] rounds = new int[10][];
+	AudioInputStream input;
 	
 	Thread music = new Thread() {
 		public void run() {
 			Clip clip;
 			try {
-				AudioInputStream input = AudioSystem.getAudioInputStream(new File("other music.wav"));
+				if (screen.equals("main menu")) {
+					input = AudioSystem.getAudioInputStream(new File("Menu_Music.wav"));
+					clip = AudioSystem.getClip();
+					
+				}else if(screen.equals("play")){ 
+					clip = AudioSystem.getClip();
+					if(input.equals(AudioSystem.getAudioInputStream(new File("Menu_Music.wav")))) {
+						clip.stop();
+					}
+					input = AudioSystem.getAudioInputStream(new File("Game_Music(1).wav"));
+				}
 				clip = AudioSystem.getClip();
 				clip.open(input);
 				clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -136,6 +148,7 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 				return false;
 			}
 			else {
+				round++;
 				deathCounter = 1000;
 				while (deathCounter >0) {
 					deathCounter--;
@@ -144,6 +157,17 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 			
 		}
 		return true;
+	}
+	
+	public int roundMoney () {
+		
+		if (isRoundOver() == true) {
+			return 300 + (round * 100);
+		}else {
+			return 0;
+		}
+		
+		
 	}
 	
 	public static void main(String[] args) {
