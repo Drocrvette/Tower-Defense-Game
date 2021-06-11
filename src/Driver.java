@@ -59,13 +59,13 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 			{9,0,0,0,0,30},
 			{10,10,10,10,10}
 	};
-//	Music2 MainMenuMusic = new Music2("Menu_Music.wav", true);
-//	Music2 GameMusic = new Music2("Game_Music_(1).wav", true);
-//	Music2 loseSound = new Music2("loseSound.wav", false);
-//	Music2 winSound = new Music2("winSound.wav", false);
-//	Music2 upgradeSound = new Music2("upgradeSound.wav", false);
-//	Music2 spawnSound = new Music2("spawn.wav", false);
-////	Music2 startSound = new Music2("startSound.wav", false);
+	Music2 MainMenuMusic = new Music2("Menu_Music.wav", true);
+	Music2 GameMusic = new Music2("Game_Music_(1).wav", true);
+	Music2 loseSound = new Music2("loseSound.wav", false);
+	Music2 winSound = new Music2("winSound.wav", false);
+	Music2 upgradeSound = new Music2("upgradeSound.wav", false);
+	Music2 spawnSound = new Music2("spawn.wav", false);
+	Music2 startSound = new Music2("startSound.wav", false);
 	
 
 		
@@ -85,9 +85,7 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		for (Bat placeTowers : towers) {
 			placeTowers.paint(g);
 		}
-		g.drawRect(1290, 120, 80, 70);
-		v.setTargetPos(300, 600, 0, 0);
-		v.paint(g);
+	
 		if (gameButton.equals("resume")) {
 			resume.paint(g);
 			for (int i = 0; i < people.size(); i++) {
@@ -119,17 +117,7 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		}
 	
 		
-		if (counter >= 100) {
-
-
-			
-			}if (counter >= 150) {
-				
-			}if (counter >= 200) {
-							}
-			if (counter >= 250) {
-
-			} if (!gameButton.equals("pause")) {
+		 if (!gameButton.equals("pause")) {
 			counter++;
 			}
 		}
@@ -142,7 +130,7 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	
 	}
 	
-	public void displayNumber(int number, Graphics g) {
+	public void displayNumber(int number, Graphics g, int x, int y) {
 		int display;
 		for (int i = 0; i < number; i++) {
 			display = number % 10;
@@ -150,7 +138,8 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 			{
 			   case 0 :
 				   getImage("number 0.png");
-			      break; 
+				   
+				   break; 
 			   case 1 :
 				   getImage("number 1.png");
 			      break; 
@@ -231,12 +220,12 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		f.setResizable(false);
 		
 		Timer t = new Timer(16, this);
-		//if (screen.equals("main menu")) {
-	//	MainMenuMusic.play();
-	//	} else if (screen.equals("play")) {
-		//	MainMenuMusic.stop();
-		//	GameMusic.play();
-		//}
+	if (screen.equals("main menu")) {
+	MainMenuMusic.play();
+		} else if (screen.equals("play")) {
+			MainMenuMusic.stop();
+			GameMusic.play();
+		}
 		t.start();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
