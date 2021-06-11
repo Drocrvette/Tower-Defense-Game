@@ -65,7 +65,6 @@ public class Virus {
 					vy = Math.sin(angleInR)*speed;
 					}  
 
-		System.out.println(x + " " + y);
 		
 	}
 	public void paint(Graphics g) {

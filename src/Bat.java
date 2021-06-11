@@ -40,16 +40,30 @@ public class Bat {
 	}
 	public void paint(Graphics g) {
 			if (version == 1) {
-		imageOfBatLookingRight = getImage("normal bat looking right.gif");
-		imageOfBatLookingLeft = getImage("normal bat looking left.gif");
+		imageOfBatLookingRight = getImage("bat.png");
+		imageOfBatLookingLeft = getImage("bat.png");
 		tx.scale(1, 1);
 
 			} else if (version == 2) {
+				imageOfBatLookingRight = getImage("");
+				imageOfBatLookingLeft = getImage("catapult looking left.gif");
+				tx.scale(2, 2);
+			} else if (version == 3) {
 				imageOfBatLookingRight = getImage("catapult looking right.gif");
 				imageOfBatLookingLeft = getImage("catapult looking left.gif");
 				tx.scale(2, 2);
-
-
+			} else if (version == 4) {
+				imageOfBatLookingRight = getImage("catapult.png");
+				imageOfBatLookingLeft = getImage("catapult.png");
+				tx.scale(2, 2);
+			} else if (version == 5) {
+				imageOfBatLookingRight = getImage("catapult looking right.gif");
+				imageOfBatLookingLeft = getImage("catapult looking left.gif");
+				tx.scale(2, 2);
+			} else if (version == 6) {
+				imageOfBatLookingRight = getImage("catapult looking right.gif");
+				imageOfBatLookingLeft = getImage("catapult looking left.gif");
+				tx.scale(2, 2);
 			}
 		finalImage = imageOfBatLookingLeft;
 		Graphics2D g2 = (Graphics2D) g;

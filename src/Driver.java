@@ -1,6 +1,9 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,6 +18,7 @@ import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.sound.sampled.AudioInputStream;
@@ -25,11 +29,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Driver extends JPanel implements ActionListener, MouseListener{
 
 	Background b = new Background(1);
-	Person oldPerson1 = new Person(1240,125,1);
-	Person normalPerson1 = new Person (1240, 125, 2);
-	Person fastest1 = new Person (1240, 125, 5);
-	Person fast1 = new Person(1240, 125, 3);
-	Person faster1 = new Person(1240, 125, 4);
 	int counter = 0;
 	Background title = new Background(0);
 	buttons exit = new buttons(0, 600,4);
@@ -38,44 +37,37 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	buttons resume = new buttons(1028,717,1);
 	String screen = "main menu";
 	String gameButton = "pause";
+	String select = "nothing";
 	ArrayList<Person> people = new ArrayList<Person>();
+	ArrayList<Bat> towers = new ArrayList<Bat>();
 	int deathCounter = 300;
 	Bat buyBat = new Bat(1300,115,1);
-	Bat buyCatapult = new Bat(1300,185,2);
+	Bat buyCatapult = new Bat(1300,185,3);
 	int tempvx, tempvy;
 	Virus v = new Virus(1000, 100, 5);
 	int round = 0;
-	int[][] rounds = new int[10][];
-	AudioInputStream input;
-	
-	Thread music = new Thread() {
-		public void run() {
-			Clip clip;
-			try {
-				if (screen.equals("main menu")) {
-					input = AudioSystem.getAudioInputStream(new File("Menu_Music.wav"));
-					clip = AudioSystem.getClip();
-					
-				}else if(screen.equals("play")){ 
-					clip = AudioSystem.getClip();
-					if(input.equals(AudioSystem.getAudioInputStream(new File("Menu_Music.wav")))) {
-						clip.stop();
-					}
-					input = AudioSystem.getAudioInputStream(new File("Game_Music(1).wav"));
-				}
-				clip = AudioSystem.getClip();
-				clip.open(input);
-				clip.loop(Clip.LOOP_CONTINUOUSLY);
-				clip.start();
-			} catch (UnsupportedAudioFileException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (LineUnavailableException e) {
-				e.printStackTrace();
-			}
-		}
+	int mouseX, mouseY;
+	int[][] rounds = {
+			{1,15,0,0,0,0},
+			{2,10,10,0,0,0},
+			{3,0,20,0,0,0,0},
+			{4,0,10,10,0,0},
+			{5,10,10,20,0,0},
+			{6,0,0,10,10,0},
+			{7,0,0,0,10,10},
+			{8,0,0,0,0,20},
+			{9,0,0,0,0,30},
+			{10,10,10,10,10}
 	};
+//	Music2 MainMenuMusic = new Music2("Menu_Music.wav", true);
+//	Music2 GameMusic = new Music2("Game_Music_(1).wav", true);
+//	Music2 loseSound = new Music2("loseSound.wav", false);
+//	Music2 winSound = new Music2("winSound.wav", false);
+//	Music2 upgradeSound = new Music2("upgradeSound.wav", false);
+//	Music2 spawnSound = new Music2("spawn.wav", false);
+////	Music2 startSound = new Music2("startSound.wav", false);
+	
+
 		
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -83,19 +75,37 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		exit.paint(g);
 		start.paint(g);
 		
-
-		
 		if (screen.equals("play")) {
+		
+			
 		b.paint(g);
 		buyBat.paint(g);
 		buyCatapult.paint(g);
-		people.add(fastest1);
+		
+		for (Bat placeTowers : towers) {
+			placeTowers.paint(g);
+		}
+		g.drawRect(1290, 120, 80, 70);
 		v.setTargetPos(300, 600, 0, 0);
 		v.paint(g);
 		if (gameButton.equals("resume")) {
 			resume.paint(g);
 			for (int i = 0; i < people.size(); i++) {
 				people.get(i).setVXandVY(tempvx,tempvy);
+			}
+			for (Person enemies : people) {
+				enemies.paint(g);
+				int newTimer = 0;
+				while (newTimer > 200) {
+					newTimer++;
+				}
+				if (isRoundOver())  {
+					
+					gameButton = "pause";
+					round++;
+					
+
+				}
 			}
 		} else if (gameButton.equals("pause")) {
 			pause.paint(g);
@@ -108,23 +118,14 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 			
 		}
 	
-		if (counter >= 50) {
-			oldPerson1.paint(g);
-		normalPerson1.paint(g);
-
 		
-
-		}
 		if (counter >= 100) {
-			fast1.paint(g);
 
 
 			
 			}if (counter >= 150) {
-			faster1.paint(g);
 				
 			}if (counter >= 200) {
-			fastest1.paint(g);
 							}
 			if (counter >= 250) {
 
@@ -141,6 +142,48 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	
 	}
 	
+	public void displayNumber(int number, Graphics g) {
+		int display;
+		for (int i = 0; i < number; i++) {
+			display = number % 10;
+			switch(display)
+			{
+			   case 0 :
+				   getImage("number 0.png");
+			      break; 
+			   case 1 :
+				   getImage("number 1.png");
+			      break; 
+			   case 2 :
+				   getImage("number 2.png");
+			      break; 
+			   case 3 :
+				   getImage("number 3.png");
+			      break; 
+			   case 4 :
+				   getImage("number 4.png");
+			      break; 
+			   case 5 :
+				   getImage("number 5.png");
+			      break; 
+			   case 6 :
+				   getImage("number 6.png");
+			      break; 
+			   case 7 :
+				   getImage("number 7.png");
+			      break; 
+			   case 8 :
+				   getImage("number 8.png");
+			      break; 
+			   case 9 :
+				   getImage("number 9.png");
+			      break; 
+		}
+	}
+	}
+	
+	
+
 	public boolean isRoundOver() {
 
 		for (int i = 0; i < people.size();i++) {
@@ -173,21 +216,7 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Driver d = new Driver();
-		Scanner s;
 		
-		try {
-			s = new Scanner(new File("covid defense round sheet - Sheet 1.csv"));
-			int count = 0;
-			s.next();
-			while (s.hasNext()) {
-				
-			}
-			s.close();
-
-		}
-		catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 		
 		
@@ -202,41 +231,39 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		f.setResizable(false);
 		
 		Timer t = new Timer(16, this);
-	
-		music.run();
-		
+		//if (screen.equals("main menu")) {
+	//	MainMenuMusic.play();
+	//	} else if (screen.equals("play")) {
+		//	MainMenuMusic.stop();
+		//	GameMusic.play();
+		//}
 		t.start();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
 
 		
 	}
-	
+	Image getImage(String path) {
+		Image tempImage = null;
+		try {
+			URL imageURL = Person.class.getResource(path);
+			tempImage = Toolkit.getDefaultToolkit().getImage(imageURL);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tempImage;
+	}
 	
 
 
 
-	
-	
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		int mouseX = arg0.getX();
-		int mouseY = arg0.getY();
-		if ((610 < mouseX && mouseX < 800) && (690 < mouseY  && mouseY < 750)) {
-			screen = "play";
-		}else if ((10 < mouseX && mouseX < 200) && (690 < mouseY  && mouseY < 750)) {
-			screen = "exit";
-		} else if (mouseX < 1200 && mouseX > 1010 && mouseY < 780 && mouseY > 705 && (gameButton.equals("pause"))) {
-			gameButton = "resume";
-			
-		}else if (mouseX < 1200 && mouseX > 1010 && mouseY < 780 && mouseY > 705 && (gameButton.equals("resume")|| screen.equals("play"))) {
-			gameButton = "pause";
-			
-
-		}
-
+		 mouseX = arg0.getX();
+		 mouseY = arg0.getY();
+		
 	}
 	
 
@@ -255,6 +282,13 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		mouseX = arg0.getX();
+		mouseY = arg0.getY();
+		if (mouseX >= 1290 && mouseX < 1370 && mouseY >= 120 && mouseY <  190) {
+			select = "bat";
+		}if (mouseX >= 1290 && mouseX < 1370 && mouseY >= 190 && mouseY <  260) {
+			select = "catapult";
+		}
 		
 		
 		
@@ -262,7 +296,41 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		int counter;
+		mouseX = arg0.getX();
+		mouseY = arg0.getY();
+		if (!select.equals("nothing")) {
+			if (select.equals("bat")) {
+				Bat batty = new Bat(mouseX-50,mouseY-50,1);
+				towers.add(batty);
+				select = "nothing";
+				System.out.println("yes");
+			} else if (select.equals("catapult")) {
+				Bat catty = new Bat(mouseX-50,mouseY-50,5);
+				towers.add(catty);				select = "nothing";
+
+				System.out.println("yes");
+			}  
+		}
+		if ((610 < mouseX && mouseX < 800) && (690 < mouseY  && mouseY < 750)) {
+			screen = "play";
+		}else if ((10 < mouseX && mouseX < 200) && (690 < mouseY  && mouseY < 750)) {
+			screen = "exit";
+		} else if (mouseX < 1200 && mouseX > 1010 && mouseY < 780 && mouseY > 705 && (gameButton.equals("pause"))) {
+			gameButton = "resume";
+			for (int i = 1; i < rounds[round].length; i++) {
+				for (int l = 0; l < rounds[round][i]; l++) {
+						people.add(new Person(1240,125,i));
+						System.out.println("yes");
+				}
+			}
+			
+		}else if (mouseX < 1200 && mouseX > 1010 && mouseY < 780 && mouseY > 705 && (gameButton.equals("resume")|| screen.equals("play"))) {
+			gameButton = "pause";
+			
+
+		}
+
 	}
 
 	@Override
