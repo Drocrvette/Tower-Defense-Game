@@ -68,14 +68,10 @@ public class Person {
 		
 
 	}
-	public void dispose(Graphics g, boolean goingLeft) {
-		if (goingLeft) {
-			finalImage=imageOfPersonGoingLeft;
-		} else {
-			finalImage =imageOfPersonGoingRight; 
-
-		}
+	public boolean isOnMap() {
+		return isOnMap;
 	}
+
 	public void paint(Graphics g) {
 		
 	
@@ -104,11 +100,11 @@ public class Person {
 
 		}	else if (posY == 125) {
 			left(stageOfPerson);
-
-		}  else if (posX == 1180 && posY > 550) {
-			stageOfPerson = 0;
+			isOnMap = true;
+		}  else if (posX > 1180 && posY > 550) {
+			isOnMap = false;
 		} else if (posX > 1240) {
-		finalImage =imageOfPersonGoingLeft; 
+		finalImage =imageOfPersonGoingRight; 
 		}
 		   
 		//System.out.println(posX + " " + posY);
@@ -142,9 +138,9 @@ public class Person {
 			imageOfPersonGoingLeft = getImage("better death.gif");
 			imageOfPersonGoingRight = getImage("better death.gif");
 			isDead = true;
+			isOnMap = false;
 			vx = 0;
 			vy = 0;
-			dispose(g,isDead);
 		
 	
 		}

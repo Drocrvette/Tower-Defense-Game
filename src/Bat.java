@@ -10,12 +10,10 @@ public class Bat {
 
 
 	private int posX, posY;
-	private int upgradesOfBat;
+	private boolean batupgrade;
 	private Image imageOfBatLookingLeft, imageOfBatLookingRight, finalImage;
 	private AffineTransform tx = AffineTransform.getTranslateInstance(posX, posY);
 	private int counter;
-	private int speedOfVirus;
-	private int yellow = 3;
 	private int version;
 	
 	public Bat(int newX, int newY, int newVersion) {
@@ -45,13 +43,13 @@ public class Bat {
 		tx.scale(1, 1);
 
 			} else if (version == 2) {
-				imageOfBatLookingRight = getImage("");
-				imageOfBatLookingLeft = getImage("catapult looking left.gif");
-				tx.scale(2, 2);
+				imageOfBatLookingRight = getImage("normal bat looking right.gif");
+				imageOfBatLookingLeft = getImage("normal bat looking left.gif");
+				tx.scale(1, 1);
 			} else if (version == 3) {
-				imageOfBatLookingRight = getImage("catapult looking right.gif");
-				imageOfBatLookingLeft = getImage("catapult looking left.gif");
-				tx.scale(2, 2);
+				imageOfBatLookingRight = getImage("bat2right.gif");
+				imageOfBatLookingLeft = getImage("bat2left.gif");
+				tx.scale(1, 1);
 			} else if (version == 4) {
 				imageOfBatLookingRight = getImage("catapult.png");
 				imageOfBatLookingLeft = getImage("catapult.png");
@@ -61,8 +59,8 @@ public class Bat {
 				imageOfBatLookingLeft = getImage("catapult looking left.gif");
 				tx.scale(2, 2);
 			} else if (version == 6) {
-				imageOfBatLookingRight = getImage("catapult looking right.gif");
-				imageOfBatLookingLeft = getImage("catapult looking left.gif");
+				imageOfBatLookingRight = getImage("catapult2right.gif");
+				imageOfBatLookingLeft = getImage("catapult2left.gif");
 				tx.scale(2, 2);
 			}
 		finalImage = imageOfBatLookingLeft;

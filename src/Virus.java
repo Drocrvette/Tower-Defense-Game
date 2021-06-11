@@ -12,12 +12,10 @@ public class Virus {
 	private double x;
 	private double y;
 	private int targetX, targetY;
-	private int speedOfTargetX, speedOfTargetY;
-	private double angle, angleInR;
+	private double  angleInR;
 	private Image finalImage;
 	private boolean hit = false;
-	private AffineTransform tx = AffineTransform.getTranslateInstance(posX, posY);
-	private double a;
+	private AffineTransform tx = AffineTransform.getTranslateInstance(posX, posY);	
 	private int speed;
 	
 	
@@ -35,7 +33,7 @@ public class Virus {
 	
 		 x = targetX-posX;
 		 y = targetY-posY;
-		if (Math.sqrt((double)(x * x)+(y*y)) <5000) {
+		if (Math.sqrt((double)(x * x)+(y*y)) <500) {
 			newMath();
 		}
 		if (Math.abs(x) < 50 && Math.abs(y) < 50) {

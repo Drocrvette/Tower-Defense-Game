@@ -40,12 +40,15 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	String select = "nothing";
 	ArrayList<Person> people = new ArrayList<Person>();
 	ArrayList<Bat> towers = new ArrayList<Bat>();
+	ArrayList<Virus> viruses = new ArrayList<Virus>();
 	int deathCounter = 300;
 	Bat buyBat = new Bat(1300,115,1);
-	Bat buyCatapult = new Bat(1300,185,3);
+	Bat buyCatapult = new Bat(1300,185,4);
+	Bat upgradeBat = new Bat(600,800,3);
+	Bat upgradecatapult = new Bat(800,800,6);
+
 	int tempvx, tempvy;
-	Virus v = new Virus(1000, 100, 5);
-	int round = 0;
+	int round = 2;
 	int mouseX, mouseY;
 	int[][] rounds = {
 			{1,15,0,0,0,0},
@@ -57,10 +60,10 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 			{7,0,0,0,10,10},
 			{8,0,0,0,0,20},
 			{9,0,0,0,0,30},
-			{10,10,10,10,10}
+			{10,10,10,10,10,10}
 	};
-	Music2 MainMenuMusic = new Music2("Menu_Music.wav", true);
-	Music2 GameMusic = new Music2("Game_Music_(1).wav", true);
+	Music2 MainMenuMusic = new Music2("Menu_Music(2).wav", true);
+	Music2 GameMusic = new Music2("Game_Music(2).wav", true);
 	Music2 loseSound = new Music2("loseSound.wav", false);
 	Music2 winSound = new Music2("winSound.wav", false);
 	Music2 upgradeSound = new Music2("upgradeSound.wav", false);
@@ -81,6 +84,8 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		b.paint(g);
 		buyBat.paint(g);
 		buyCatapult.paint(g);
+		upgradeBat.paint(g);
+		upgradecatapult.paint(g);
 		
 		for (Bat placeTowers : towers) {
 			placeTowers.paint(g);
@@ -89,29 +94,24 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		if (gameButton.equals("resume")) {
 			resume.paint(g);
 			for (int i = 0; i < people.size(); i++) {
-				people.get(i).setVXandVY(tempvx,tempvy);
 			}
 			for (Person enemies : people) {
 				enemies.paint(g);
-				int newTimer = 0;
-				while (newTimer > 200) {
-					newTimer++;
-				}
+			}
 				if (isRoundOver())  {
 					
 					gameButton = "pause";
 					round++;
-					
-
-				}
+					for (int i = people.size()-1; i > 0; i--) {
+						people.remove(i);
+					}
+				
+				
 			}
 		} else if (gameButton.equals("pause")) {
 			pause.paint(g);
 			for (int i = 0; i < people.size(); i++) {
-				tempvx = people.get(i).getVX();
-				tempvy = people.get(i).getVY();
-
-				people.get(i).setVXandVY(0,0);
+				
 			}
 			
 		}
@@ -124,9 +124,7 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 		if (screen.equals("exit") ) {
 		   System.exit(0);
 		}
-		if (isRoundOver()) {
-			counter = 0;
-		}
+		
 	
 	}
 	
@@ -176,31 +174,18 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 	public boolean isRoundOver() {
 
 		for (int i = 0; i < people.size();i++) {
-			if (people.get(i).getStage() != 0) {
+			if (people.get(i).isOnMap()) {
 				return false;
 			}
 			else {
-				round++;
-				deathCounter = 1000;
-				while (deathCounter >0) {
-					deathCounter--;
-				}
+				
 			}
 			
 		}
 		return true;
 	}
 	
-	public int roundMoney () {
-		
-		if (isRoundOver() == true) {
-			return 300 + (round * 100);
-		}else {
-			return 0;
-		}
-		
-		
-	}
+	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -285,7 +270,7 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		int counter;
+		int counter = 0;
 		mouseX = arg0.getX();
 		mouseY = arg0.getY();
 		if (!select.equals("nothing")) {
@@ -310,7 +295,6 @@ public class Driver extends JPanel implements ActionListener, MouseListener{
 			for (int i = 1; i < rounds[round].length; i++) {
 				for (int l = 0; l < rounds[round][i]; l++) {
 						people.add(new Person(1240,125,i));
-						System.out.println("yes");
 				}
 			}
 			
